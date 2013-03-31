@@ -1,16 +1,25 @@
 package com.github.geekarist.ogan;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class CaloriesLoader {
 
 	public List<String> loadCaloriesByDayForThisWeek() {
-		String json = "{Monday: 1900, Tuesday: 2150, Wednesday: 2000, Thursday: 0, Friday: 0, Saturday: 0, Sunday: 0}";
+		String json = fetchCaloriesByDayForThisWeek();
 		List<String> result = new ArrayList<String>();
 		try {
 			JSONObject jsonObject = new JSONObject(json);
@@ -25,6 +34,21 @@ public class CaloriesLoader {
 			return result;
 		}
 		return result;
+	}
+
+	private String fetchCaloriesByDayForThisWeek() {
+		HttpRequestBase request = new HttpGet("http://cpele.free.fr/ogan.json");
+		HttpClient client = new DefaultHttpClient();
+		HttpResponse response;
+		try {
+			response = client.execute(request);
+			HttpEntity entity = response.getEntity();
+			return EntityUtils.toString(entity);
+		} catch (ClientProtocolException e) {
+			throw new RuntimeException(e);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	private void addDay(List<String> result, final JSONObject jsonObject,

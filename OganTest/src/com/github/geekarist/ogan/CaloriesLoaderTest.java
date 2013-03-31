@@ -15,7 +15,7 @@ public class CaloriesLoaderTest extends TestCase {
 		List<String> calories = loader.loadCaloriesByDayForThisWeek();
 
 		// THEN
-		List<String> expectedItems = Arrays.asList("Monday: 1900",
+		List<String> expectedItems = Arrays.asList("Monday: 2100",
 				"Tuesday: 2150", "Wednesday: 2000", "Thursday: 0", "Friday: 0",
 				"Saturday: 0", "Sunday: 0");
 		Assert.assertEquals(expectedItems, calories);

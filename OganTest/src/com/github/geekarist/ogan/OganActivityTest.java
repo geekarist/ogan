@@ -46,7 +46,7 @@ public class OganActivityTest extends
 		activity.onCreate(bundle);
 
 		// THEN
-		List<String> expectedItems = Arrays.asList("Monday: 1900",
+		List<String> expectedItems = Arrays.asList("Monday: 2100",
 				"Tuesday: 2150", "Wednesday: 2000", "Thursday: 0", "Friday: 0",
 				"Saturday: 0", "Sunday: 0");
 		assertEquals(7, listView.getChildCount());

@@ -12,11 +12,16 @@ public class OganActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		ListView listView = (ListView) findViewById(R.id.listView1);
-		List<String> items = new CaloriesLoader()
-				.loadCaloriesByDayForThisWeek();
-		listView.setAdapter(new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1, items));
+		final ListView listView = (ListView) findViewById(R.id.listView1);
+		final OganActivity activity = this;
+		new CaloriesLoaderAsyncTask(new OganCallback() {
+			@Override
+			public void use(List<String> result) {
+				System.out.println("YO");
+				listView.setAdapter(new ArrayAdapter<String>(activity,
+						android.R.layout.simple_list_item_1,
+						android.R.id.text1, result));
+			}
+		}).execute((Void) null);
 	}
-
 }
