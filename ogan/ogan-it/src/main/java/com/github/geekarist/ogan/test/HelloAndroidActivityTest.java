@@ -31,7 +31,7 @@ public class HelloAndroidActivityTest extends
 	}
 
 	@UiThreadTest
-	public void shouldLoadWeekItemsOnCreate() {
+	public void testLoadWeekItemsOnCreate() {
 		// GIVEN
 		Bundle bundle = new Bundle();
 
